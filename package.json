@@ -6,6 +6,8 @@
   "author": "chengyu.wang",
   "license": "MIT",
   "scripts": {
+    "commit": "git-cz",
+    "release": "standard-version",
     "dev": "next ./src",
     "build": "next build ./src && next export ./src -o ./outputfile"
   },
@@ -33,6 +35,35 @@
     "git-rev-sync": "^1.12.0",
     "next-compose-plugins": "^2.2.0",
     "next-optimized-images": "^2.5.3",
-    "webpack": "^4.38.0"
+    "webpack": "^4.38.0",
+    "commitizen": "^4.0.3",
+    "cz-conventional-changelog": "^3.0.2",
+    "@commitlint/cli": "^8.0.0",
+    "@commitlint/config-conventional": "^8.0.0",
+    "husky": "^2.7.0",
+    "lint-staged": "^8.2.1",
+    "standard-version": "^6.0.1"
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-conventional-changelog"
+    }
+  },
+  "lint-staged": {
+    "*.{tsx,ts,js}": [
+      "eslint --fix",
+      "git add"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "commit-msg": "commitlint -e $GIT_PARAMS"
+    }
   }
 }
